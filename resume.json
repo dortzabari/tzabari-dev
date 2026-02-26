@@ -1,0 +1,63 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+  "basics": {
+    "name": "Dor Tzabari",
+    "label": "Co-Founder & GTM Operator — Building AI Products",
+    "email": "dor.tzabari@gmail.com",
+    "url": "https://tzabari.dev",
+    "summary": "GTM operator who builds from scratch. Over 8+ years taking products from early traction to enterprise adoption: qualified pipeline, paid POCs, and long-term commercial partnerships across the US, EMEA, and APAC. Co-founded a smart-city startup (sole-source vendor to Tel Aviv Municipality). Works at the intersection of innovation, strategy, and execution — building the relationships and systems that accelerate product-market fit.",
+    "location": {
+      "country": "IL"
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "dortzabari",
+        "url": "https://github.com/dortzabari"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "dortzabari",
+        "url": "https://www.linkedin.com/in/dortzabari/"
+      },
+      {
+        "network": "X",
+        "username": "dortzabari1",
+        "url": "https://x.com/dortzabari1"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "Smart-City Startup",
+      "position": "Co-Founder",
+      "summary": "Co-founded a smart-city startup that became the sole-source vendor to Tel Aviv Municipality."
+    }
+  ],
+  "volunteer": [],
+  "education": [],
+  "skills": [
+    {
+      "name": "Go-to-Market",
+      "keywords": ["Enterprise Sales", "Pipeline Development", "POC Management", "Commercial Partnerships"]
+    },
+    {
+      "name": "Product",
+      "keywords": ["Product-Market Fit", "AI Products", "Language Models", "Product Strategy"]
+    },
+    {
+      "name": "Markets",
+      "keywords": ["US", "EMEA", "APAC"]
+    }
+  ],
+  "interests": [
+    {
+      "name": "Outdoors",
+      "keywords": ["Skiing", "Mountaineering", "Freediving", "Beekeeping"]
+    }
+  ],
+  "meta": {
+    "version": "v1.0.0",
+    "lastModified": "2026-02-26"
+  }
+}

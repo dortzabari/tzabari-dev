@@ -1,0 +1,29 @@
+# Dor Tzabari
+
+> Co-founder and GTM operator building AI products.
+
+## About
+
+Dor Tzabari builds at the intersection of AI and product. He is interested in how language models change the way software gets made, used, and understood.
+
+A GTM operator who likes building from scratch. Over 8+ years he has taken products from early traction to enterprise adoption: qualified pipeline, paid POCs, and long-term commercial partnerships across the US, EMEA, and APAC.
+
+He co-founded a smart-city startup (sole-source vendor to Tel Aviv Municipality), and works best at the intersection of innovation, strategy, and execution — building the relationships and systems that accelerate product-market fit.
+
+Former IDF Captain (Yahalom).
+
+Currently focused on creating a startup with massive real-world impact, using AI at the edge of what's possible.
+
+## Contact
+
+- Email: dor.tzabari@gmail.com
+- GitHub: https://github.com/dortzabari
+- X/Twitter: https://x.com/dortzabari1
+- LinkedIn: https://www.linkedin.com/in/dortzabari/
+- Website: https://tzabari.dev
+
+## Pages
+
+- [Home](https://tzabari.dev/)
+- [Blog](https://tzabari.dev/blog.html)
+- [Resume (JSON)](https://tzabari.dev/resume.json)
