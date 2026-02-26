@@ -2,11 +2,13 @@
   "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
   "basics": {
     "name": "Dor Tzabari",
-    "label": "Co-Founder & GTM Operator — Building AI Products",
+    "label": "Business Development Director — Building AI Products",
     "email": "dor.tzabari@gmail.com",
+    "phone": "+972 508522445",
     "url": "https://tzabari.dev",
-    "summary": "GTM operator who builds from scratch. Over 8+ years taking products from early traction to enterprise adoption: qualified pipeline, paid POCs, and long-term commercial partnerships across the US, EMEA, and APAC. Co-founded a smart-city startup (sole-source vendor to Tel Aviv Municipality). Works at the intersection of innovation, strategy, and execution — building the relationships and systems that accelerate product-market fit.",
+    "summary": "Business Development Director with 8+ years experience building and driving GTM strategies in early-stage startups, resulting in qualified enterprise pipelines, paid POCs, and long-term commercial partnerships across the US, EMEA, and APAC. Co-founded a smart-city startup (sole-source vendor to Tel Aviv Municipality) and was the founding GTM hire for an autonomous vehicle company. Experienced in cultivating C-level relationships within global enterprises, forming strategic alliances, and working cross-functionally to accelerate product-market fit. Former IDF officer (Captain, Yahalom).",
     "location": {
+      "city": "Tel Aviv",
       "country": "IL"
     },
     "profiles": [
@@ -29,25 +31,64 @@
   },
   "work": [
     {
-      "name": "Smart-City Startup",
-      "position": "Co-Founder",
-      "summary": "Co-founded a smart-city startup that became the sole-source vendor to Tel Aviv Municipality."
+      "name": "DriveU.auto",
+      "position": "Business Development Director",
+      "startDate": "2020",
+      "summary": "Provider of teleoperation and autonomy for vehicles, deployed across global autonomous fleets.",
+      "highlights": [
+        "Built and executed global GTM strategy across US, EMEA, and APAC; scaled pipeline to $5M+ in potential ACV with 4x coverage ratio through 100+ qualified enterprise leads",
+        "Led end-to-end sales cycles converting discovery into 10 paid POCs and 4 multi-year commercial agreements worth $300K–$1.5M",
+        "Designed and deployed OpenClaw, a custom AI outbound agent automating lead enrichment and first-touch prospecting at scale",
+        "Built proprietary account intelligence database of 600+ organizations, mapping ICPs and decision-makers across target verticals",
+        "Partnered with CEO, Product, and Engineering to translate enterprise requirements into technical scope and delivery plans for POCs",
+        "Cultivated C-level relationships at global events (CES, MWC, Manifest) and established channel partnerships for platform integration and resale"
+      ]
+    },
+    {
+      "name": "Greentech",
+      "position": "Co-Founder & CEO",
+      "startDate": "2017",
+      "endDate": "2020",
+      "summary": "Smart waste management platform; deployed with Tel Aviv Municipality.",
+      "highlights": [
+        "Owned full company buildout from founding through market entry — product roadmap, GTM strategy, operations, and legal",
+        "Led business development and pilot negotiations, landing flagship deployment with Tel Aviv Municipality on Rothschild Boulevard",
+        "Negotiated sole-source vendor designation with Tel Aviv Municipality, eliminating competitive tender requirements",
+        "Raised $100K in pre-seed funding — built pitch narrative, financial model, and investor pipeline from scratch"
+      ]
     }
   ],
-  "volunteer": [],
-  "education": [],
+  "education": [
+    {
+      "institution": "The Open University of Israel",
+      "area": "Computer Science",
+      "summary": "Foundation in software engineering, algorithms, and system architecture."
+    }
+  ],
+  "military": [
+    {
+      "organization": "Israel Defense Forces",
+      "position": "Officer (Captain), Yahalom — Combat Engineering Unit for Special Operations",
+      "startDate": "2011",
+      "endDate": "2016",
+      "highlights": [
+        "Commanded a team of 20 soldiers through complex, high-stakes operations",
+        "Founded and led a technological R&D unit — recruiting senior industry experts and driving innovation initiatives"
+      ]
+    }
+  ],
   "skills": [
     {
-      "name": "Go-to-Market",
-      "keywords": ["Enterprise Sales", "Pipeline Development", "POC Management", "Commercial Partnerships"]
+      "name": "Business",
+      "keywords": ["0-to-1 GTM Strategy & Execution", "Enterprise Sales & Complex Deal Cycles", "Strategic Alliances & Ecosystem Development", "C-Level Stakeholder Engagement", "Pipeline Architecture & Outbound at Scale", "ICP Definition & Product-Market Fit", "Fundraising & Investor Relations", "Channel & Partner Development"]
     },
     {
-      "name": "Product",
-      "keywords": ["Product-Market Fit", "AI Products", "Language Models", "Product Strategy"]
+      "name": "Technical",
+      "keywords": ["AI-Powered Sales Automation", "LLM-Driven Research & Lead Enrichment", "Prompt Engineering for BD", "Scalable Playbook Creation", "Sales Enablement Automation"]
     },
     {
-      "name": "Markets",
-      "keywords": ["US", "EMEA", "APAC"]
+      "name": "Tools",
+      "keywords": ["HubSpot", "Salesforce", "Apollo", "LinkedIn Sales Navigator", "JIRA", "Claude Code", "ChatGPT", "Perplexity"]
     }
   ],
   "interests": [

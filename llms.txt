@@ -1,22 +1,54 @@
 # Dor Tzabari
 
-> Co-founder and GTM operator building AI products.
+> Business Development Director with 8+ years experience building and driving GTM strategies in early-stage startups.
 
 ## About
 
 Dor Tzabari builds at the intersection of AI and product. He is interested in how language models change the way software gets made, used, and understood.
 
-A GTM operator who likes building from scratch. Over 8+ years he has taken products from early traction to enterprise adoption: qualified pipeline, paid POCs, and long-term commercial partnerships across the US, EMEA, and APAC.
+A GTM operator who builds from scratch. Over 8+ years he has taken products from early traction to enterprise adoption: qualified pipeline, paid POCs, and long-term commercial partnerships across the US, EMEA, and APAC.
 
-He co-founded a smart-city startup (sole-source vendor to Tel Aviv Municipality), and works best at the intersection of innovation, strategy, and execution — building the relationships and systems that accelerate product-market fit.
-
-Former IDF Captain (Yahalom).
+Former IDF Captain (Yahalom — Combat Engineering Unit for Special Operations).
 
 Currently focused on creating a startup with massive real-world impact, using AI at the edge of what's possible.
+
+## Experience
+
+### Business Development Director — DriveU.auto (2020–Present)
+Provider of teleoperation and autonomy for vehicles, deployed across global autonomous fleets.
+- Built and executed global GTM strategy across US, EMEA, and APAC; scaled pipeline to $5M+ in potential ACV
+- Led end-to-end sales cycles: 10 paid POCs and 4 multi-year commercial agreements ($300K–$1.5M)
+- Designed OpenClaw, a custom AI outbound agent automating lead enrichment and prospecting at scale
+- Built proprietary account intelligence database of 600+ organizations
+- Cultivated C-level relationships at CES, MWC, Manifest
+
+### Co-Founder & CEO — Greentech (2017–2020)
+Smart waste management platform; deployed with Tel Aviv Municipality.
+- Full company buildout from founding through market entry
+- Flagship deployment with Tel Aviv Municipality on Rothschild Boulevard
+- Negotiated sole-source vendor designation, eliminating competitive tender
+- Raised $100K in pre-seed funding
+
+## Military
+
+Officer (Captain), Yahalom — IDF Combat Engineering Unit for Special Operations (2011–2016)
+- Commanded a team of 20 soldiers through complex, high-stakes operations
+- Founded and led a technological R&D unit
+
+## Education
+
+Computer Science — The Open University of Israel
+
+## Skills
+
+Business: GTM Strategy, Enterprise Sales, Strategic Alliances, C-Level Engagement, Pipeline Architecture, Product-Market Fit, Fundraising, Channel Development
+Technical: AI Sales Automation, LLM Research & Enrichment, Prompt Engineering, Sales Enablement Automation
+Tools: HubSpot, Salesforce, Apollo, LinkedIn Sales Navigator, JIRA, Claude Code, ChatGPT, Perplexity
 
 ## Contact
 
 - Email: dor.tzabari@gmail.com
+- Phone: +972 508522445
 - GitHub: https://github.com/dortzabari
 - X/Twitter: https://x.com/dortzabari1
 - LinkedIn: https://www.linkedin.com/in/dortzabari/
