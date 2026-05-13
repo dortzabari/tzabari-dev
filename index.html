@@ -190,6 +190,15 @@
       color: var(--fg);
     }
 
+    nav .nav-disabled {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      opacity: 0.4;
+      cursor: not-allowed;
+      user-select: none;
+    }
+
     .theme-toggle {
       background: none;
       border: none;
@@ -485,8 +494,7 @@
     <header>
       <a class="site-name" href="/">tzabari.dev</a>
       <nav>
-        <!-- blog disabled until first post is live -->
-        <!-- <a href="blog.html">blog →</a> -->
+        <span class="nav-disabled" aria-disabled="true" title="blog coming soon">blog →</span>
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
           <span id="themeIcon">◐</span>
         </button>
