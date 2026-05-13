@@ -38,18 +38,18 @@
       "highlights": [
         "Built and executed global GTM strategy across US, EMEA, and APAC; scaled pipeline to $5M+ in potential ACV with 4x coverage ratio through 100+ qualified enterprise leads",
         "Led end-to-end sales cycles converting discovery into 10 paid POCs and 4 multi-year commercial agreements worth $300K–$1.5M",
-        "Designed and deployed OpenClaw, a custom AI outbound agent automating lead enrichment and first-touch prospecting at scale",
+        "Configured OpenClaw — an open-source agent runtime — for a non-standard BD outbound use case at DriveU, repurposed as the enrichment + first-touch engine letting a single-person BD function operate at team-scale output",
         "Built proprietary account intelligence database of 600+ organizations, mapping ICPs and decision-makers across target verticals",
         "Partnered with CEO, Product, and Engineering to translate enterprise requirements into technical scope and delivery plans for POCs",
         "Cultivated C-level relationships at global events (CES, MWC, Manifest) and established channel partnerships for platform integration and resale"
       ]
     },
     {
-      "name": "Greentech",
+      "name": "Greener Israel",
       "position": "Co-Founder & CEO",
       "startDate": "2017",
       "endDate": "2020",
-      "summary": "Smart waste management platform; deployed with Tel Aviv Municipality.",
+      "summary": "Smart-waste / smart-city platform; sole distributor of Bigbelly in Israel; flagship deployment with Tel Aviv Municipality across the entire Rothschild Boulevard.",
       "highlights": [
         "Owned full company buildout from founding through market entry — product roadmap, GTM strategy, operations, and legal",
         "Led business development and pilot negotiations, landing flagship deployment with Tel Aviv Municipality on Rothschild Boulevard",
@@ -97,8 +97,33 @@
       "keywords": ["Skiing", "Mountaineering", "Freediving", "Beekeeping"]
     }
   ],
+  "projects": [
+    {
+      "name": "bdr-agent",
+      "description": "Production AI sales-development pipeline for a B2B startup, built as 6 n8n workflows.",
+      "highlights": [
+        "Slack-approval interactivity with idempotent state management",
+        "AI correction loop using GPT-4.1 with debounce + schedule sweeps",
+        "ICP scoring with arithmetic safety net",
+        "Free-text command routing in Slack channel",
+        "Built one node at a time to understand every piece"
+      ],
+      "keywords": ["n8n", "GPT-4.1", "Slack API", "Google Sheets", "Google Drive", "Tavily", "agentic workflows", "BD automation"]
+    },
+    {
+      "name": "OpenClaw — configured for BD outbound",
+      "description": "Non-standard use case design over OpenClaw, an open-source multi-channel agent runtime (openclaw.ai). Repurposed multi-channel routing as the enrichment + first-touch engine for a single-person BD function in production.",
+      "url": "https://openclaw.ai",
+      "highlights": [
+        "Recognized fit between an open-source runtime designed for chat and a single-person BD function that needed agentic infrastructure",
+        "Configured platform defaults to serve a BD-outbound use case the platform wasn't marketed for",
+        "Production deployment on Dor's own pipeline"
+      ],
+      "keywords": ["OpenClaw", "open-source", "agent runtime", "BD outbound", "non-standard use case design", "production AI"]
+    }
+  ],
   "meta": {
     "version": "v1.0.0",
-    "lastModified": "2026-02-26"
+    "lastModified": "2026-05-13"
   }
 }

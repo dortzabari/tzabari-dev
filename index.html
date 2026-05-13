@@ -34,7 +34,7 @@
     "name": "Dor Tzabari",
     "url": "https://tzabari.dev",
     "jobTitle": "Business Development Director",
-    "description": "Business Development Director with 8+ years experience building and driving GTM strategies in early-stage startups. Co-founded Greentech (sole-source vendor to Tel Aviv Municipality). Founding GTM hire at DriveU.auto, scaling pipeline to $5M+ ACV across US, EMEA, and APAC. Former IDF Captain (Yahalom).",
+    "description": "Business Development Director with 8+ years experience building and driving GTM strategies in early-stage startups. Co-founded Greener Israel (sole-source vendor to Tel Aviv Municipality). Founding GTM hire at DriveU.auto, scaling pipeline to $5M+ ACV across US, EMEA, and APAC. Former IDF Captain (Yahalom).",
     "knowsAbout": ["AI Products", "Go-to-Market Strategy", "Enterprise Sales", "Product-Market Fit", "Smart City Technology", "Autonomous Vehicles", "Teleoperation", "AI Sales Automation", "LLM Applications"],
     "sameAs": [
       "https://github.com/dortzabari",
@@ -82,7 +82,7 @@
         "endDate": "2020",
         "memberOf": {
           "@type": "Organization",
-          "name": "Greentech"
+          "name": "Greener Israel"
         }
       }
     ]
@@ -302,6 +302,7 @@
       border: none;
       border-top: 1px solid var(--border);
       margin-bottom: 24px;
+      opacity: 0.6;
     }
 
     /* Section headers */
@@ -324,6 +325,49 @@
       padding: 16px 0;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
+    }
+
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .project {
+      /* no borders within section — whitespace handles separation */
+    }
+
+    .project-name {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--fg);
+      letter-spacing: 0.01em;
+    }
+
+    .project-name a {
+      color: var(--fg);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .project-name a:hover {
+      color: var(--hover);
+    }
+
+    .project-desc {
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.75;
+      color: var(--fg);
+      margin-bottom: 4px;
+    }
+
+    .project-meta {
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--muted);
     }
 
     /* Links / Connect */
@@ -441,7 +485,8 @@
     <header>
       <a class="site-name" href="/">tzabari.dev</a>
       <nav>
-        <a href="blog.html">blog →</a>
+        <!-- blog disabled until first post is live -->
+        <!-- <a href="blog.html">blog →</a> -->
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
           <span id="themeIcon">◐</span>
         </button>
@@ -474,7 +519,7 @@
         </p>
 
         <p class="bio-dim bio-divider">
-          <span class="label">Lately:</span> focused on creating a startup with massive real-world impact, using AI at the edge of what's possible.
+          <span class="label">Lately:</span> building agentic systems on my own BD pipeline, using AI at the edge of what's possible.
         </p>
         <p class="bio-dim">
           <span class="label">Outside work:</span> skiing, mountaineering, freediving, and managing 20 beehives.
@@ -483,12 +528,26 @@
 
       <!-- Projects -->
       <section class="section" aria-label="Projects">
+        <div class="section-divider"></div>
         <h2 class="section-label">Projects</h2>
-        <p class="projects-empty">// coming soon</p>
+        <div class="projects-list">
+          <div class="project">
+            <!-- TODO: when bdr-agent is pushed to public github, wrap "bdr-agent" in <a href="https://github.com/dortzabari/bdr-agent">...</a> -->
+            <h3 class="project-name">bdr-agent</h3>
+            <p class="project-desc">production AI sales-development pipeline for a B2B startup — 6 workflows in n8n</p>
+            <p class="project-meta">slack-approval interactivity + AI correction loop (GPT-4.1) + idempotent state // built one node at a time</p>
+          </div>
+          <div class="project">
+            <h3 class="project-name">openclaw // configured for BD outbound</h3>
+            <p class="project-desc">non-standard use case design over the open-source agent runtime</p>
+            <p class="project-meta">repurposed multi-channel routing as enrichment + first-touch engine for a single-person BD function</p>
+          </div>
+        </div>
       </section>
 
       <!-- Connect -->
       <section class="section" aria-label="Connect">
+        <div class="section-divider"></div>
         <h2 class="section-label">Connect</h2>
         <ul class="links-list">
           <li>

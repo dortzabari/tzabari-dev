@@ -10,7 +10,7 @@ A GTM operator who builds from scratch. Over 8+ years he has taken products from
 
 Former IDF Captain (Yahalom — Combat Engineering Unit for Special Operations).
 
-Currently focused on creating a startup with massive real-world impact, using AI at the edge of what's possible.
+Lately: building agentic systems on his own BD pipeline, using AI at the edge of what's possible.
 
 ## Experience
 
@@ -18,13 +18,13 @@ Currently focused on creating a startup with massive real-world impact, using AI
 Provider of teleoperation and autonomy for vehicles, deployed across global autonomous fleets.
 - Built and executed global GTM strategy across US, EMEA, and APAC; scaled pipeline to $5M+ in potential ACV
 - Led end-to-end sales cycles: 10 paid POCs and 4 multi-year commercial agreements ($300K–$1.5M)
-- Designed OpenClaw, a custom AI outbound agent automating lead enrichment and prospecting at scale
+- Configured OpenClaw — an open-source agent runtime — for a non-standard BD outbound use case at DriveU, repurposed as the enrichment + first-touch engine
 - Built proprietary account intelligence database of 600+ organizations
 - Cultivated C-level relationships at CES, MWC, Manifest
 
-### Co-Founder & CEO — Greentech (2017–2020)
-Smart waste management platform; deployed with Tel Aviv Municipality.
-- Full company buildout from founding through market entry
+### Co-Founder & CEO — Greener Israel (2017–2020)
+Smart-waste / smart-city platform; sole distributor of Bigbelly in Israel; flagship deployment with Tel Aviv Municipality across the entire Rothschild Boulevard.
+- Full company buildout from founding through market entry (product, GTM, ops, legal)
 - Flagship deployment with Tel Aviv Municipality on Rothschild Boulevard
 - Negotiated sole-source vendor designation, eliminating competitive tender
 - Raised $100K in pre-seed funding
@@ -39,11 +39,27 @@ Officer (Captain), Yahalom — IDF Combat Engineering Unit for Special Operation
 
 Computer Science — The Open University of Israel
 
+## Projects
+
+### bdr-agent
+Production AI sales-development pipeline for a B2B startup, built as 6 n8n workflows.
+- Slack-approval interactivity with idempotent state management
+- AI correction loop using GPT-4.1 with debounce + schedule sweeps
+- ICP scoring with arithmetic safety net
+- Free-text command routing in a Slack channel
+- Built one node at a time to understand every piece
+
+### openclaw — configured for BD outbound
+Non-standard use case design over OpenClaw (https://openclaw.ai), an open-source multi-channel agent runtime. Repurposed multi-channel routing as the enrichment + first-touch engine for a single-person BD function in production.
+- Recognized fit between an open-source runtime designed for chat and a BD function that needed agentic infrastructure
+- Configured platform defaults to serve a BD-outbound use case the platform wasn't marketed for
+- Production deployment on Dor's own pipeline
+
 ## Skills
 
 Business: GTM Strategy, Enterprise Sales, Strategic Alliances, C-Level Engagement, Pipeline Architecture, Product-Market Fit, Fundraising, Channel Development
-Technical: AI Sales Automation, LLM Research & Enrichment, Prompt Engineering, Sales Enablement Automation
-Tools: HubSpot, Salesforce, Apollo, LinkedIn Sales Navigator, JIRA, Claude Code, ChatGPT, Perplexity
+Technical: AI Sales Automation, LLM Research & Enrichment, Prompt Engineering, Sales Enablement Automation, n8n workflow design, Open-source agent runtime configuration
+Tools: HubSpot, Salesforce, Apollo, LinkedIn Sales Navigator, JIRA, Claude Code, ChatGPT, Perplexity, n8n, OpenClaw
 
 ## Contact
 
