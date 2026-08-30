@@ -457,6 +457,16 @@
       letter-spacing: 0.01em;
     }
 
+    .footer-text a {
+      color: inherit;
+      text-underline-offset: 3px;
+      transition: color 0.15s ease;
+    }
+
+    .footer-text a:hover {
+      color: var(--fg);
+    }
+
     /* Animations */
     @keyframes fadeUp {
       from {
@@ -592,7 +602,7 @@
 
     <footer>
       <div class="footer-inner">
-        <span class="footer-text">Dor Tzabari · tzabari.dev</span>
+        <span class="footer-text">Dor Tzabari · <a href="/privacy.html">Privacy</a></span>
         <span class="footer-text" id="year"></span>
       </div>
     </footer>
