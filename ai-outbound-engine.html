@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>An AI outbound engine, built node by node — Dor Tzabari</title>
+  <meta name="description" content="Case study: how I built and run DriveU.auto's AI outbound engine — seven n8n workflows, 120+ nodes, human-approval gates in Slack, deterministic guardrails on every LLM output, and a known cost of about $0.09 per enriched account." />
+  <meta name="author" content="Dor Tzabari" />
+  <meta name="keywords" content="GTM engineering, AI outbound engine, n8n workflows, human-in-the-loop, LLM guardrails, sales automation, ICP scoring, lead enrichment, Dor Tzabari" />
+  <link rel="canonical" href="https://tzabari.dev/ai-outbound-engine.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="An AI outbound engine, built node by node" />
+  <meta property="og:description" content="Seven n8n workflows, 120+ nodes, human-approval gates in Slack, deterministic guardrails on every LLM output. Built and run by one operator." />
+  <meta property="og:url" content="https://tzabari.dev/ai-outbound-engine.html" />
+  <meta property="og:site_name" content="tzabari.dev" />
+  <meta property="og:image" content="https://tzabari.dev/profile.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@dortzabari1" />
+  <meta name="twitter:title" content="An AI outbound engine, built node by node" />
+  <meta name="twitter:description" content="Seven n8n workflows, 120+ nodes, human-approval gates in Slack, deterministic guardrails on every LLM output. Built and run by one operator." />
+  <meta name="twitter:image" content="https://tzabari.dev/profile.png" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "An AI outbound engine, built node by node",
+    "description": "How Dor Tzabari built and runs DriveU.auto's AI outbound engine: seven n8n workflows, 120+ nodes, human-approval gates in Slack, deterministic guardrails on every LLM output, at a known cost of about $0.09 per enriched account.",
+    "url": "https://tzabari.dev/ai-outbound-engine.html",
+    "datePublished": "2026-08-16",
+    "author": {
+      "@type": "Person",
+      "name": "Dor Tzabari",
+      "url": "https://tzabari.dev",
+      "jobTitle": "Head of GTM"
+    },
+    "about": ["GTM Engineering", "Workflow Orchestration", "n8n", "Human-in-the-Loop AI", "Sales Automation"]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #111111;
+      --muted: #888888;
+      --border: #e5e5e5;
+      --accent: #111111;
+      --hover: #555555;
+      --link-underline: rgba(17,17,17,0.25);
+      color-scheme: light;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0a0a0a;
+      --fg: #f0f0f0;
+      --muted: #666666;
+      --border: #222222;
+      --accent: #f0f0f0;
+      --hover: #aaaaaa;
+      --link-underline: rgba(240,240,240,0.2);
+      color-scheme: dark;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 13px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Monaco, "Courier New", monospace;
+      background-color: var(--bg);
+      color: var(--fg);
+      transition: background-color 0.2s ease, color 0.2s ease;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 32px 0 0;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+      animation-delay: 0s;
+    }
+
+    .site-name {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    nav a {
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.15s ease;
+    }
+
+    nav a:hover {
+      color: var(--fg);
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 12px;
+      padding: 0;
+      letter-spacing: 0.02em;
+      transition: color 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .theme-toggle:hover {
+      color: var(--fg);
+    }
+
+    main {
+      padding: 64px 0 80px;
+    }
+
+    .section {
+      opacity: 0;
+      animation: fadeUp 0.55s ease forwards;
+    }
+
+    .section:nth-child(1) { animation-delay: 0.1s; }
+    .section:nth-child(2) { animation-delay: 0.2s; }
+    .section:nth-child(n+3) { animation-delay: 0.3s; }
+
+    .section + .section {
+      margin-top: 56px;
+    }
+
+    .page-title {
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.4;
+    }
+
+    .page-subtitle {
+      margin-top: 10px;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .page-meta {
+      margin-top: 16px;
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin-bottom: 24px;
+      opacity: 0.6;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .prose {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--fg);
+      line-height: 1.85;
+    }
+
+    .prose + .prose {
+      margin-top: 14px;
+    }
+
+    .prose strong {
+      font-weight: 500;
+    }
+
+    .prose a {
+      color: var(--fg);
+      text-decoration: underline;
+      text-decoration-color: var(--link-underline);
+      text-underline-offset: 3px;
+      transition: color 0.15s ease;
+    }
+
+    .prose a:hover {
+      color: var(--hover);
+    }
+
+    ul.prose-list {
+      list-style: none;
+      margin-top: 14px;
+    }
+
+    ul.prose-list li {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.85;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    ul.prose-list li + li {
+      margin-top: 10px;
+    }
+
+    ul.prose-list li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+    }
+
+    .callout {
+      margin-top: 20px;
+      padding: 14px 16px;
+      border-left: 2px solid var(--fg);
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--fg);
+    }
+
+    .fact-row {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .fact {
+      flex: 1 1 130px;
+      padding: 14px 12px;
+      border-right: 1px solid var(--border);
+    }
+
+    .fact:last-child {
+      border-right: none;
+    }
+
+    .fact-value {
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .fact-label {
+      margin-top: 4px;
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .diagram-wrap {
+      margin-top: 24px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .diagram-wrap svg {
+      display: block;
+      min-width: 680px;
+      width: 100%;
+      height: auto;
+      font-family: inherit;
+    }
+
+    .diagram-caption {
+      margin-top: 10px;
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    svg .box {
+      fill: var(--bg);
+      stroke: var(--fg);
+      stroke-width: 1;
+    }
+
+    svg .box-soft {
+      fill: var(--bg);
+      stroke: var(--muted);
+      stroke-width: 1;
+    }
+
+    svg .box-code {
+      fill: var(--bg);
+      stroke: var(--muted);
+      stroke-width: 1;
+      stroke-dasharray: 4 3;
+    }
+
+    svg .box-llm {
+      fill: var(--bg);
+      stroke: var(--fg);
+      stroke-width: 1.6;
+    }
+
+    svg .t {
+      fill: var(--fg);
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    svg .t2 {
+      fill: var(--muted);
+      font-size: 10px;
+      font-weight: 300;
+    }
+
+    svg .lbl {
+      fill: var(--muted);
+      font-size: 10px;
+      font-weight: 300;
+    }
+
+    svg .edge {
+      stroke: var(--muted);
+      stroke-width: 1;
+      fill: none;
+    }
+
+    svg .edge-dash {
+      stroke: var(--muted);
+      stroke-width: 1;
+      fill: none;
+      stroke-dasharray: 3 3;
+    }
+
+    footer {
+      padding: 40px 0 32px;
+      opacity: 0;
+      animation: fadeUp 0.55s ease forwards;
+      animation-delay: 0.5s;
+    }
+
+    .footer-inner {
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-text {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 300;
+      letter-spacing: 0.01em;
+    }
+
+    .footer-text a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .footer-text a:hover {
+      color: var(--fg);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 24px 0 0;
+      }
+
+      main {
+        padding: 48px 0 56px;
+      }
+
+      .page-title {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a class="site-name" href="/">tzabari.dev</a>
+      <nav>
+        <a href="/">home</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span id="themeIcon">◐</span>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Title -->
+      <section class="section">
+        <h1 class="page-title">An AI outbound engine, built node by node</h1>
+        <p class="page-subtitle">
+          How I built and run DriveU.auto's outbound engine — seven n8n workflows, 120+ nodes, one operator.
+        </p>
+        <p class="page-meta">Dor Tzabari · internal pilot under active iteration, deployed and live since April 2026</p>
+
+        <div class="fact-row" aria-label="Key facts">
+          <div class="fact">
+            <div class="fact-value">7</div>
+            <div class="fact-label">n8n workflows</div>
+          </div>
+          <div class="fact">
+            <div class="fact-value">120+</div>
+            <div class="fact-label">nodes, built by hand</div>
+          </div>
+          <div class="fact">
+            <div class="fact-value">~$0.09</div>
+            <div class="fact-label">per enriched account</div>
+          </div>
+          <div class="fact">
+            <div class="fact-value">Apr 2026</div>
+            <div class="fact-label">live since</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- What this is -->
+      <section class="section" aria-label="What this is">
+        <div class="section-divider"></div>
+        <h2 class="section-label">What this is</h2>
+        <p class="prose">
+          I'm DriveU.auto's first GTM hire — I founded and ran the outbound and RevOps function as a team of one. DriveU sells an autonomous retrofit kit for terminal tractors to container terminals worldwide: a narrow ICP, six-figure enterprise deals, long multi-stakeholder cycles.
+        </p>
+        <p class="prose">
+          This page is about the system I built to run that function: an AI outbound engine covering enrichment, ICP scoring, contact discovery, personalized outreach generation, human approval, and metrics. It is an internal pilot under active iteration, deployed and live since April 2026. No spec, no engineering support — I built it myself, one node at a time.
+        </p>
+      </section>
+
+      <!-- The problem -->
+      <section class="section" aria-label="The problem">
+        <div class="section-divider"></div>
+        <h2 class="section-label">The problem</h2>
+        <p class="prose">
+          One operator, a global market. The account map came first: before any automation, I researched the total addressable market by hand and built a proprietary database of 600+ organizations — it drove the company's entire pipeline and account strategy, and produced the deals. The engine came later, built on top of that foundation.
+        </p>
+        <p class="prose">
+          What I needed from automation was not more accounts. It was research depth and outreach preparation at a pace one person can't sustain manually — without giving up control over what actually reaches a buyer.
+        </p>
+      </section>
+
+      <!-- Architecture -->
+      <section class="section" aria-label="Architecture">
+        <div class="section-divider"></div>
+        <h2 class="section-label">Architecture</h2>
+        <p class="prose">
+          n8n is the orchestration layer: chained workflows connected by webhooks, Slack events, and scheduled runs. Slack is the user interface — review cards with buttons, corrections made by replying in a thread, and a free-text router: type an account name in the channel and enrichment starts. The spreadsheet the team already used is the state machine: every workflow reads and writes it, so state survives restarts and needs no queue infrastructure. That was a deliberate adoption decision — ship into the tools the team already works in; the workflow layer stays replaceable.
+        </p>
+
+        <div class="diagram-wrap">
+          <svg viewBox="0 0 720 566" role="img" aria-label="Workflow chain diagram: account row flows through enrichment, Slack review, review handler, contact discovery, and outreach generation, with a corrections rewriter beside the review card and metrics feed plus error notifier alongside">
+            <defs>
+              <marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0,0 L8,4 L0,8 z" fill="var(--muted)" />
+              </marker>
+            </defs>
+
+            <!-- main column boxes -->
+            <rect class="box-soft" x="40" y="16" width="320" height="40" rx="2" />
+            <text class="t" x="52" y="33">Account row</text>
+            <text class="t2" x="52" y="47">Google Sheets — the state machine</text>
+
+            <rect class="box" x="40" y="96" width="320" height="48" rx="2" />
+            <text class="t" x="52" y="114">01 · Lead enrichment</text>
+            <text class="t2" x="52" y="130">3 parallel web searches → LLM profile → ICP safety net</text>
+
+            <rect class="box" x="40" y="184" width="320" height="48" rx="2" />
+            <text class="t" x="52" y="202">Review card in Slack</text>
+            <text class="t2" x="52" y="218">approve · request corrections</text>
+
+            <rect class="box" x="40" y="272" width="320" height="48" rx="2" />
+            <text class="t" x="52" y="290">02 · Review handler</text>
+            <text class="t2" x="52" y="306">deterministic state machine — zero LLM calls, idempotent</text>
+
+            <rect class="box" x="40" y="360" width="320" height="48" rx="2" />
+            <text class="t" x="52" y="378">03 + 03b · Contact discovery</text>
+            <text class="t2" x="52" y="394">decision-makers per account · daily enrichment sweep</text>
+
+            <rect class="box" x="40" y="448" width="320" height="48" rx="2" />
+            <text class="t" x="52" y="466">04 · Outreach generator</text>
+            <text class="t2" x="52" y="482">one personalized message per approved contact</text>
+
+            <rect class="box-code" x="40" y="526" width="320" height="34" rx="2" />
+            <text class="t2" x="52" y="547">queued on accept — sent manually (Phase 1)</text>
+
+            <!-- main column arrows -->
+            <line class="edge" x1="200" y1="56" x2="200" y2="94" marker-end="url(#arr)" />
+            <line class="edge" x1="200" y1="144" x2="200" y2="182" marker-end="url(#arr)" />
+            <line class="edge" x1="200" y1="232" x2="200" y2="270" marker-end="url(#arr)" />
+            <text class="lbl" x="210" y="256">approve</text>
+            <line class="edge" x1="200" y1="320" x2="200" y2="358" marker-end="url(#arr)" />
+            <line class="edge" x1="200" y1="408" x2="200" y2="446" marker-end="url(#arr)" />
+            <text class="lbl" x="210" y="432">start outreach</text>
+            <line class="edge" x1="200" y1="496" x2="200" y2="524" marker-end="url(#arr)" />
+
+            <!-- loop: 02 fires next account back to 01 -->
+            <path class="edge" d="M 40 296 L 16 296 L 16 120 L 38 120" marker-end="url(#arr)" />
+            <text class="lbl" x="14" y="210" transform="rotate(-90 14 210)" text-anchor="middle">fires next account</text>
+
+            <!-- corrections rewriter, beside review card -->
+            <rect class="box" x="430" y="164" width="270" height="48" rx="2" />
+            <text class="t" x="442" y="182">06 · Corrections rewriter</text>
+            <text class="t2" x="442" y="198">thread replies → surgical rewrite</text>
+            <path class="edge" d="M 360 196 L 428 184" marker-end="url(#arr)" />
+            <text class="lbl" x="368" y="178">reply in thread</text>
+            <path class="edge" d="M 430 208 L 362 220" marker-end="url(#arr)" />
+            <text class="lbl" x="380" y="238">same card updated</text>
+
+            <!-- side rail: metrics + errors -->
+            <rect class="box-soft" x="430" y="300" width="270" height="48" rx="2" />
+            <text class="t" x="442" y="318">07 · Metrics feed</text>
+            <text class="t2" x="442" y="334">funnel · conversion · velocity · unit cost → dashboard</text>
+            <line class="edge-dash" x1="360" y1="324" x2="428" y2="324" />
+
+            <rect class="box-soft" x="430" y="388" width="270" height="48" rx="2" />
+            <text class="t" x="442" y="406">99 · Error notifier</text>
+            <text class="t2" x="442" y="422">failures from any workflow → Slack alert</text>
+            <line class="edge-dash" x1="360" y1="412" x2="428" y2="412" />
+          </svg>
+        </div>
+        <p class="diagram-caption">
+          The workflow chain. Approving a review card is a fan-out event: it writes state back, fires the next account's enrichment, and starts contact discovery for the approved one — one click keeps the belt moving. The metrics feed and error notifier run alongside everything.
+        </p>
+      </section>
+
+      <!-- Fixed pipeline -->
+      <section class="section" aria-label="A fixed pipeline, not an autonomous agent">
+        <div class="section-divider"></div>
+        <h2 class="section-label">A fixed pipeline, not an autonomous agent</h2>
+        <p class="prose">
+          The obvious 2026 shape for this system is an agent: give a model tools and a goal, let it decide the steps. I built that variant of the enrichment workflow too — and chose the pipeline. Fixed steps mean every step is auditable: I can point at any output and say which node produced it, from which inputs, at what cost. When something goes wrong, that property is worth more than flexibility.
+        </p>
+        <div class="callout">
+          The LLM runs inside defined steps where I control and validate the outcome — it never manages the process.
+        </div>
+      </section>
+
+      <!-- Guardrails -->
+      <section class="section" aria-label="The LLM is a bounded component">
+        <div class="section-divider"></div>
+        <h2 class="section-label">The LLM is a bounded component</h2>
+        <p class="prose">
+          Bounded in both directions. Where deterministic code wins, the model was removed: the search-query builder started as an LLM call and is now plain code — cheaper, faster, and it deleted an entire JSON-parse failure mode. Data gaps are computed from empty fields in the record, not from a model imagining what's missing.
+        </p>
+        <p class="prose">
+          Where synthesis is the job, the model runs — wrapped in control:
+        </p>
+        <ul class="prose-list">
+          <li>The search API's own AI-generated answer field is dropped entirely. I caught it fabricating a partnership claim about a terminal we were researching, extrapolated from an unrelated press release. Raw sources only.</li>
+          <li>Search results are filtered by token-matching the account's name, with stopword and abbreviation handling — terminal names often carry abbreviations that match several unrelated ports.</li>
+          <li>The ICP safety net: code re-parses the model's own scoring table, validates each factor against the legal rubric values, and recomputes the total deterministically. If the model's arithmetic is wrong, the report is corrected in every place the score appears — and an audit row records what changed.</li>
+          <li>Confidence is deterministic, not vibe-based: "high" requires five or more distinct cited sources and no unresolved conflicts.</li>
+          <li>Conflicting sources are surfaced, not resolved silently. A surfaced conflict is more useful than a silent guess.</li>
+        </ul>
+
+        <div class="diagram-wrap">
+          <svg viewBox="0 0 720 264" role="img" aria-label="Anatomy of one enrichment run: trigger, row pick, deterministic query building, parallel web searches, deterministic filtering, LLM profile generation, deterministic safety net, then output to file, Drive, and Slack">
+            <defs>
+              <marker id="arr2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0,0 L8,4 L0,8 z" fill="var(--muted)" />
+              </marker>
+            </defs>
+
+            <!-- row 1 -->
+            <rect class="box-soft" x="10" y="24" width="155" height="56" rx="2" />
+            <text class="t" x="20" y="44">Trigger</text>
+            <text class="t2" x="20" y="59">webhook · button ·</text>
+            <text class="t2" x="20" y="72">chat message</text>
+
+            <rect class="box-code" x="190" y="24" width="155" height="56" rx="2" />
+            <text class="t" x="200" y="44">Pick next row</text>
+            <text class="t2" x="200" y="59">pending-review guard —</text>
+            <text class="t2" x="200" y="72">no double enrichment</text>
+
+            <rect class="box-code" x="370" y="24" width="155" height="56" rx="2" />
+            <text class="t" x="380" y="44">Build 3 queries</text>
+            <text class="t2" x="380" y="59">deterministic code —</text>
+            <text class="t2" x="380" y="72">replaced an LLM call</text>
+
+            <rect class="box-soft" x="550" y="24" width="155" height="56" rx="2" />
+            <text class="t" x="560" y="44">Web search ×3</text>
+            <text class="t2" x="560" y="59">parallel: equipment ·</text>
+            <text class="t2" x="560" y="72">news · industry pubs</text>
+
+            <line class="edge" x1="165" y1="52" x2="188" y2="52" marker-end="url(#arr2)" />
+            <line class="edge" x1="345" y1="52" x2="368" y2="52" marker-end="url(#arr2)" />
+            <line class="edge" x1="525" y1="52" x2="548" y2="52" marker-end="url(#arr2)" />
+
+            <!-- serpentine down -->
+            <path class="edge" d="M 627 80 L 627 122 L 627 142" marker-end="url(#arr2)" />
+
+            <!-- row 2 (right to left) -->
+            <rect class="box-code" x="550" y="146" width="155" height="56" rx="2" />
+            <text class="t" x="560" y="166">Filter results</text>
+            <text class="t2" x="560" y="181">drop AI answers ·</text>
+            <text class="t2" x="560" y="194">token-match sources</text>
+
+            <rect class="box-llm" x="370" y="146" width="155" height="56" rx="2" />
+            <text class="t" x="380" y="166">LLM: cited profile</text>
+            <text class="t2" x="380" y="181">10 sections · inline</text>
+            <text class="t2" x="380" y="194">citations · ICP scores</text>
+
+            <rect class="box-code" x="190" y="146" width="155" height="56" rx="2" />
+            <text class="t" x="200" y="166">ICP safety net</text>
+            <text class="t2" x="200" y="181">validate buckets · recompute</text>
+            <text class="t2" x="200" y="194">total · audit row</text>
+
+            <rect class="box-soft" x="10" y="146" width="155" height="56" rx="2" />
+            <text class="t" x="20" y="166">Output</text>
+            <text class="t2" x="20" y="181">file + Drive +</text>
+            <text class="t2" x="20" y="194">Slack review card</text>
+
+            <line class="edge" x1="548" y1="174" x2="527" y2="174" marker-end="url(#arr2)" />
+            <line class="edge" x1="368" y1="174" x2="347" y2="174" marker-end="url(#arr2)" />
+            <line class="edge" x1="188" y1="174" x2="167" y2="174" marker-end="url(#arr2)" />
+
+            <!-- legend -->
+            <rect class="box-code" x="10" y="232" width="26" height="14" rx="2" />
+            <text class="lbl" x="44" y="243">deterministic code</text>
+            <rect class="box-llm" x="170" y="232" width="26" height="14" rx="2" />
+            <text class="lbl" x="204" y="243">LLM call</text>
+            <rect class="box-soft" x="290" y="232" width="26" height="14" rx="2" />
+            <text class="lbl" x="324" y="243">I/O · external</text>
+          </svg>
+        </div>
+        <p class="diagram-caption">
+          One enrichment run. The single LLM call sits between deterministic preparation and deterministic validation — code decides what the model sees, and code checks what the model returns.
+        </p>
+      </section>
+
+      <!-- Human in the loop -->
+      <section class="section" aria-label="Human in the loop, by design">
+        <div class="section-divider"></div>
+        <h2 class="section-label">Human in the loop, by design</h2>
+        <p class="prose">
+          Every enriched account lands as a review card in Slack with two buttons: approve, or request corrections. Approval is idempotent — the handler re-reads the sheet before doing any work, so a double-click or a click on a stale card produces a polite "already approved" reply and zero side effects.
+        </p>
+        <p class="prose">
+          Corrections are conversational. Click the button, then reply in the thread in plain language. A 45-second debounce batches multiple replies into one surgical rewrite — and the debounce clock is a timestamp column in the sheet, so it survives restarts with no queue infrastructure. The rewrite contract is strict: apply only the stated corrections, user facts override web sources, and contradicted citations get marked as superseded — never deleted. The updated report replaces the original Slack message in place, so there is exactly one card per account and the whole review conversation stays attached.
+        </p>
+        <p class="prose">
+          Just as deliberate is what I have <strong>not</strong> automated yet:
+        </p>
+        <ul class="prose-list">
+          <li><strong>Sending is manual.</strong> Outreach messages are generated per contact and queued behind an accept button; a human sends them. The first touch is the most expensive moment in outbound — it stays human until the system has earned more.</li>
+          <li><strong>Reply handling is not live.</strong> I built a reply handler, pulled it from rotation, and queued a rewrite. Capabilities enter the loop in stages, behind trust.</li>
+          <li><strong>Net-new lead discovery is not started.</strong> Sourcing today means pulling accounts from the researched database, not finding new ones.</li>
+        </ul>
+      </section>
+
+      <!-- Cost and observability -->
+      <section class="section" aria-label="Cost and observability">
+        <div class="section-divider"></div>
+        <h2 class="section-label">Cost and observability</h2>
+        <p class="prose">
+          Cost is an architecture property, not an afterthought. One account per execution — easier to reason about, easier to debug, and cheap enough that there's no pressure to batch: about $0.09 per enriched account, about $0.06 per corrections round. Models are selected per task on cost/performance (OpenAI GPT / Claude models), benchmarked and re-benchmarked as pricing moves.
+        </p>
+        <p class="prose">
+          Failures from any workflow route to a central error notifier in Slack. That notifier taught its own lesson: a provider outage once flooded it with identical alerts, so the scheduled reads got retry-and-continue hardening — deliberately not applied to the interactive paths, where a failure must surface immediately.
+        </p>
+        <p class="prose">
+          On top of the engine's own data sits a read-only metrics feed powering a live GTM dashboard: funnel, conversion, velocity, and per-unit cost. The system reports on itself.
+        </p>
+      </section>
+
+      <!-- What's next -->
+      <section class="section" aria-label="What's next">
+        <div class="section-divider"></div>
+        <h2 class="section-label">What's next</h2>
+        <p class="prose">
+          Sequenced multi-touch outreach, the reply-handler rewrite, and CRM integration — the workflow layer is replaceable by design, so wiring the engine into a CRM is an integration task, not a rebuild. Each of these follows the same staging rule as everything above: nothing goes autonomous until the human-reviewed version of it has earned that.
+        </p>
+      </section>
+
+      <!-- Contact -->
+      <section class="section" aria-label="Contact">
+        <div class="section-divider"></div>
+        <h2 class="section-label">Contact</h2>
+        <p class="prose">
+          If you're building or hiring around AI-native GTM systems, I'd like to talk — <a href="mailto:dor@tzabari.dev">dor@tzabari.dev</a> · <a href="https://www.linkedin.com/in/dortzabari/" target="_blank" rel="noopener noreferrer">LinkedIn</a> · <a href="/">more about me</a>.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <span class="footer-text"><a href="/">Dor Tzabari · tzabari.dev</a></span>
+        <span class="footer-text" id="year"></span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Theme
+    const toggle = document.getElementById("themeToggle");
+    const icon = document.getElementById("themeIcon");
+    const root = document.documentElement;
+
+    const stored = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const initial = stored || (prefersDark ? "dark" : "light");
+
+    function setTheme(theme) {
+      root.setAttribute("data-theme", theme);
+      icon.textContent = theme === "dark" ? "○" : "◐";
+      localStorage.setItem("theme", theme);
+    }
+
+    setTheme(initial);
+
+    toggle.addEventListener("click", () => {
+      const current = root.getAttribute("data-theme");
+      setTheme(current === "dark" ? "light" : "dark");
+    });
+  </script>
+</body>
+</html>

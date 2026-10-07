@@ -2,11 +2,11 @@
   "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
   "basics": {
     "name": "Dor Tzabari",
-    "label": "Business Development Director — Building AI Products",
-    "email": "dor.tzabari@gmail.com",
+    "label": "Head of GTM — Building AI-Native GTM Systems",
+    "email": "dor@tzabari.dev",
     "phone": "+972 508522445",
     "url": "https://tzabari.dev",
-    "summary": "Business Development Director with 8+ years experience building and driving GTM strategies in early-stage startups, resulting in qualified enterprise pipelines, paid POCs, and long-term commercial partnerships across the US, EMEA, and APAC. Co-founded a smart-city startup (sole-source vendor to Tel Aviv Municipality) and was the founding GTM hire for an autonomous vehicle company. Experienced in cultivating C-level relationships within global enterprises, forming strategic alliances, and working cross-functionally to accelerate product-market fit. Former IDF officer (Captain, Yahalom).",
+    "summary": "I built and run DriveU.auto's AI-native outbound engine — n8n workflows built node by node, direct REST API integrations, JavaScript in the logic nodes, human-approval gates in Slack, anti-hallucination guardrails, and a live metrics dashboard. It runs live today, at a known cost of about $0.09 per enriched account. What separates me from other builders: I've done the selling myself — 8+ years building go-to-market at early-stage startups; DriveU's first GTM hire, where I founded and ran the entire outbound and RevOps function as a team of one, with a $5M+ ACV global pipeline across US/EMEA/APAC, 10 paid POCs, and 4 multi-year B2B SaaS agreements I sourced and ran myself. The tools I build start from what makes a buyer reply — not from the technology. Previously co-founder & CEO of a smart-city startup and an IDF Yahalom Captain.",
     "location": {
       "city": "Tel Aviv",
       "country": "IL"
@@ -32,14 +32,15 @@
   "work": [
     {
       "name": "DriveU.auto",
-      "position": "Business Development Director",
+      "position": "Head of GTM",
       "startDate": "2020",
       "summary": "Provider of teleoperation and autonomy for vehicles, deployed across global autonomous fleets.",
       "highlights": [
-        "Built and executed global GTM strategy across US, EMEA, and APAC; scaled pipeline to $5M+ in potential ACV with 4x coverage ratio through 100+ qualified enterprise leads",
-        "Led end-to-end sales cycles converting discovery into 10 paid POCs and 4 multi-year commercial agreements worth $300K–$1.5M",
-        "Configured OpenClaw — an open-source agent runtime — for a non-standard BD outbound use case at DriveU, repurposed as the enrichment + first-touch engine letting a single-person BD function operate at team-scale output",
-        "Built proprietary account intelligence database of 600+ organizations, mapping ICPs and decision-makers across target verticals",
+        "Built and run DriveU's AI outbound engine single-handedly — no spec, no engineering support: seven n8n workflows (120+ nodes) covering the full outbound chain — webhook-triggered enrichment and ICP-scoring runs, contact discovery with scheduled daily enrichment, an outreach generator with per-contact approval previews, a Slack-native corrections loop, and a free-text router that enriches any account on demand from a chat message",
+        "Built a live GTM dashboard on the engine's data — a read-only metrics API computing funnel, conversion, velocity, and per-unit-cost metrics — live pipeline visibility for the revenue team",
+        "Built the revenue org's data layer through comprehensive market research, before any automation — a proprietary 600+ organization account map of the company's total addressable market that drove the entire pipeline and account strategy, and later the foundation the engine runs on",
+        "DriveU's first GTM hire — founded and ran the entire outbound and RevOps function as a team of one; scaled a global pipeline to $5M+ ACV at a 4x coverage ratio across US, EMEA, and APAC",
+        "Converted that pipeline into 10 paid POCs and 4 multi-year commercial agreements ($300K–$1.5M ACV each) — deals sourced and run across multi-month, multi-stakeholder cycles",
         "Partnered with CEO, Product, and Engineering to translate enterprise requirements into technical scope and delivery plans for POCs",
         "Cultivated C-level relationships at global events (CES, MWC, Manifest) and established channel partnerships for platform integration and resale"
       ]
@@ -62,7 +63,7 @@
     {
       "institution": "The Open University of Israel",
       "area": "Computer Science",
-      "summary": "Foundation in software engineering, algorithms, and system architecture."
+      "summary": "Foundation in software engineering, algorithms, and system architecture — including hands-on Python and JavaScript coursework."
     }
   ],
   "military": [
@@ -79,16 +80,16 @@
   ],
   "skills": [
     {
-      "name": "Business",
-      "keywords": ["0-to-1 GTM Strategy & Execution", "Enterprise Sales & Complex Deal Cycles", "Strategic Alliances & Ecosystem Development", "C-Level Stakeholder Engagement", "Pipeline Architecture & Outbound at Scale", "ICP Definition & Product-Market Fit", "Fundraising & Investor Relations", "Channel & Partner Development"]
+      "name": "GTM Systems Engineering",
+      "keywords": ["Workflow Orchestration (n8n)", "REST APIs & Webhooks", "Prompt Engineering for Live GTM Workflows", "Reliability Engineering (error alerting, idempotent actions, deterministic validation)", "Human-in-the-Loop Design", "Per-Task Model Selection on Cost/Performance", "GTM Dashboards & Metrics Feeds", "Data Hygiene & ICP Scoring"]
     },
     {
-      "name": "Technical",
-      "keywords": ["AI-Powered Sales Automation", "LLM-Driven Research & Lead Enrichment", "Prompt Engineering for BD", "Scalable Playbook Creation", "Sales Enablement Automation"]
+      "name": "Business",
+      "keywords": ["0-to-1 GTM Strategy & Execution", "Enterprise Sales & Complex Deal Cycles", "Strategic Alliances & Ecosystem Development", "C-Level Stakeholder Engagement", "Pipeline Architecture & Outbound at Scale", "ICP Definition & Product-Market Fit", "Fundraising & Investor Relations", "Channel & Partner Development", "Revenue Operations"]
     },
     {
       "name": "Tools",
-      "keywords": ["HubSpot", "Salesforce", "Apollo", "LinkedIn Sales Navigator", "JIRA", "Claude Code", "ChatGPT", "Perplexity"]
+      "keywords": ["n8n", "Claude Code", "Codex", "Cursor", "OpenAI GPT / Claude models (selected per task on cost/performance)", "OpenClaw", "Tavily", "Apollo", "Clay", "LinkedIn Sales Navigator", "HubSpot", "Salesforce", "Python & JavaScript (working familiarity)"]
     }
   ],
   "interests": [
@@ -99,31 +100,52 @@
   ],
   "projects": [
     {
-      "name": "bdr-agent",
-      "description": "Production AI sales-development pipeline for a B2B startup, built as 6 n8n workflows.",
+      "name": "Tuvia",
+      "roles": ["Co-Founder"],
+      "startDate": "2026-04",
+      "description": "An operating system for retirement advisors in Israel. Turns hours of manual pension and insurance mapping into one structured client view. Co-founded with a practicing retirement advisor, who is also the first user.",
       "highlights": [
-        "Slack-approval interactivity with idempotent state management",
-        "AI correction loop using GPT-4.1 with debounce + schedule sweeps",
-        "ICP scoring with arithmetic safety net",
-        "Free-text command routing in Slack channel",
-        "Built one node at a time to understand every piece"
+        "Ingests clearinghouse (Masleka) exports across many institutions, parses and normalizes them into a single client view",
+        "Hebrew RTL advisor workspace for products, insurance, deposits and flagged anomalies, plus a board for organizing client cases",
+        "Ingest-to-workspace pipeline working end to end",
+        "Next: a classification and recommendation layer built on Claude"
       ],
-      "keywords": ["n8n", "GPT-4.1", "Slack API", "Google Sheets", "Google Drive", "Tavily", "agentic workflows", "BD automation"]
+      "keywords": [
+        "Next.js",
+        "TypeScript",
+        "SQLite",
+        "Claude",
+        "pension advisory",
+        "fintech"
+      ]
     },
     {
-      "name": "OpenClaw — configured for BD outbound",
-      "description": "Non-standard use case design over OpenClaw, an open-source multi-channel agent runtime (openclaw.ai). Repurposed multi-channel routing as the enrichment + first-touch engine for a single-person BD function in production.",
+      "name": "bdr-agent",
+      "url": "https://tzabari.dev/ai-outbound-engine.html",
+      "description": "AI outbound engine for a B2B startup — seven n8n workflows (120+ nodes) covering sourcing, enrichment, ICP scoring, contact discovery, personalized outreach generation, human approval, and metrics. Internal pilot under active iteration, deployed and live since April 2026.",
+      "highlights": [
+        "Fixed pipeline over autonomous agent — built the agent variant too and chose the pipeline, so every step is auditable",
+        "LLM as a bounded component: deterministic guardrails, ICP-score safety net with audit trail, anti-hallucination source filtering, conflicts surfaced instead of silently guessed",
+        "Slack human-approval gates + corrections loop with idempotent actions — staged human-in-the-loop rollout by design",
+        "Live GTM metrics feed and dashboard — funnel, conversion, velocity, and per-unit-cost over the engine's own data",
+        "Cost instrumented per run (~$0.09 per enriched account) with per-task model routing",
+        "Built one node at a time to understand every piece"
+      ],
+      "keywords": ["n8n", "OpenAI GPT", "Claude", "Slack API", "Google Sheets", "Google Drive", "Tavily", "workflow orchestration", "human-in-the-loop", "GTM engineering", "BD automation"]
+    },
+    {
+      "name": "OpenClaw — configured for BD work",
+      "description": "Non-standard use case design over OpenClaw, an open-source multi-channel agent runtime (openclaw.ai). Configured the platform for research and enrichment support in a team-of-one BD function.",
       "url": "https://openclaw.ai",
       "highlights": [
-        "Recognized fit between an open-source runtime designed for chat and a single-person BD function that needed agentic infrastructure",
-        "Configured platform defaults to serve a BD-outbound use case the platform wasn't marketed for",
-        "Production deployment on Dor's own pipeline"
+        "Recognized fit between an open-source runtime designed for chat and a single-person BD function that needed agentic support",
+        "Configured platform defaults to serve a BD use case the platform wasn't marketed for"
       ],
-      "keywords": ["OpenClaw", "open-source", "agent runtime", "BD outbound", "non-standard use case design", "production AI"]
+      "keywords": ["OpenClaw", "open-source", "agent runtime", "non-standard use case design", "BD workflows"]
     }
   ],
   "meta": {
-    "version": "v1.0.0",
-    "lastModified": "2026-05-13"
+    "version": "v1.1.0",
+    "lastModified": "2026-08-11"
   }
 }

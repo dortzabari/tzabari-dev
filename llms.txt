@@ -1,6 +1,6 @@
 # Dor Tzabari
 
-> Business Development Director with 8+ years experience building and driving GTM strategies in early-stage startups.
+> Head of GTM with 8+ years experience building go-to-market at early-stage startups — and builder of an AI-native outbound engine (n8n workflows, LLM enrichment, human-approval gates in Slack).
 
 ## About
 
@@ -10,16 +10,17 @@ A GTM operator who builds from scratch. Over 8+ years he has taken products from
 
 Former IDF Captain (Yahalom — Combat Engineering Unit for Special Operations).
 
-Lately: building agentic systems on his own BD pipeline, using AI at the edge of what's possible.
+Lately: built and run an AI-native outbound engine on his own BD pipeline — n8n workflows built node by node, human-approval gates in Slack, a live metrics dashboard.
 
 ## Experience
 
-### Business Development Director — DriveU.auto (2020–Present)
+### Head of GTM — DriveU.auto (2020–Present)
 Provider of teleoperation and autonomy for vehicles, deployed across global autonomous fleets.
-- Built and executed global GTM strategy across US, EMEA, and APAC; scaled pipeline to $5M+ in potential ACV
-- Led end-to-end sales cycles: 10 paid POCs and 4 multi-year commercial agreements ($300K–$1.5M)
-- Configured OpenClaw — an open-source agent runtime — for a non-standard BD outbound use case at DriveU, repurposed as the enrichment + first-touch engine
-- Built proprietary account intelligence database of 600+ organizations
+- Built and runs DriveU's AI outbound engine single-handedly — seven n8n workflows (120+ nodes) covering the full outbound chain: enrichment, ICP scoring, contact discovery, personalized outreach generation, Slack-native human approval and corrections
+- Built a live GTM dashboard on the engine's data — funnel, conversion, velocity, and per-unit-cost metrics
+- Built the revenue org's data layer through comprehensive market research, before any automation — a proprietary 600+ organization account map of the total addressable market
+- DriveU's first GTM hire — founded and ran the entire outbound and RevOps function as a team of one; scaled a global pipeline to $5M+ ACV across US, EMEA, and APAC
+- Converted that pipeline into 10 paid POCs and 4 multi-year commercial agreements ($300K–$1.5M ACV each)
 - Cultivated C-level relationships at CES, MWC, Manifest
 
 ### Co-Founder & CEO — Greener Israel (2017–2020)
@@ -41,29 +42,37 @@ Computer Science — The Open University of Israel
 
 ## Projects
 
+### Tuvia (co-founder, since April 2026)
+An operating system for retirement advisors in Israel. Turns hours of manual pension and insurance mapping into one structured client view. Co-founded with a practicing retirement advisor, who is also the first user.
+- Ingests clearinghouse (Masleka) exports across many institutions, parses and normalizes them into a single client view
+- Hebrew RTL advisor workspace for products, insurance, deposits and flagged anomalies, plus a board for organizing client cases
+- Ingest-to-workspace pipeline working end to end
+- Next: a classification and recommendation layer built on Claude
+
 ### bdr-agent
-Production AI sales-development pipeline for a B2B startup, built as 6 n8n workflows.
-- Slack-approval interactivity with idempotent state management
-- AI correction loop using GPT-4.1 with debounce + schedule sweeps
-- ICP scoring with arithmetic safety net
-- Free-text command routing in a Slack channel
+AI outbound engine for a B2B startup — seven n8n workflows (120+ nodes) covering sourcing, enrichment, ICP scoring, contact discovery, personalized outreach generation, human approval, and metrics. Internal pilot under active iteration, deployed and live since April 2026.
+Full case study: https://tzabari.dev/ai-outbound-engine.html
+- Fixed pipeline over autonomous agent — built the agent variant too and chose the pipeline, so every step is auditable
+- LLM as a bounded component: deterministic guardrails, ICP-score safety net with audit trail, anti-hallucination source filtering
+- Slack human-approval gates + corrections loop with idempotent actions — staged human-in-the-loop rollout by design
+- Live GTM metrics feed and dashboard over the engine's own data
+- Cost instrumented per run (~$0.09 per enriched account) with per-task model routing (OpenAI GPT / Claude models, selected per task on cost/performance)
 - Built one node at a time to understand every piece
 
-### openclaw — configured for BD outbound
-Non-standard use case design over OpenClaw (https://openclaw.ai), an open-source multi-channel agent runtime. Repurposed multi-channel routing as the enrichment + first-touch engine for a single-person BD function in production.
-- Recognized fit between an open-source runtime designed for chat and a BD function that needed agentic infrastructure
-- Configured platform defaults to serve a BD-outbound use case the platform wasn't marketed for
-- Production deployment on Dor's own pipeline
+### openclaw — configured for BD work
+Non-standard use case design over OpenClaw (https://openclaw.ai), an open-source multi-channel agent runtime. Configured the platform for research and enrichment support in a team-of-one BD function.
+- Recognized fit between an open-source runtime designed for chat and a single-person BD function that needed agentic support
+- Configured platform defaults to serve a BD use case the platform wasn't marketed for
 
 ## Skills
 
-Business: GTM Strategy, Enterprise Sales, Strategic Alliances, C-Level Engagement, Pipeline Architecture, Product-Market Fit, Fundraising, Channel Development
-Technical: AI Sales Automation, LLM Research & Enrichment, Prompt Engineering, Sales Enablement Automation, n8n workflow design, Open-source agent runtime configuration
-Tools: HubSpot, Salesforce, Apollo, LinkedIn Sales Navigator, JIRA, Claude Code, ChatGPT, Perplexity, n8n, OpenClaw
+GTM systems engineering: workflow orchestration (n8n), REST APIs & webhooks, prompt engineering for live GTM workflows, reliability engineering (error alerting, idempotent actions, deterministic validation), human-in-the-loop design, GTM dashboards & metrics, data hygiene & ICP scoring
+Business: 0-to-1 GTM strategy, enterprise sales, strategic alliances, C-level engagement, pipeline architecture, product-market fit, fundraising, channel development, revenue operations
+Tools: n8n, Claude Code, Codex, Cursor, OpenAI GPT / Claude models (selected per task on cost/performance), OpenClaw, Tavily, Apollo, Clay, LinkedIn Sales Navigator, HubSpot, Salesforce, Python & JavaScript (working familiarity)
 
 ## Contact
 
-- Email: dor.tzabari@gmail.com
+- Email: dor@tzabari.dev
 - Phone: +972 508522445
 - GitHub: https://github.com/dortzabari
 - X/Twitter: https://x.com/dortzabari1
@@ -73,5 +82,6 @@ Tools: HubSpot, Salesforce, Apollo, LinkedIn Sales Navigator, JIRA, Claude Code,
 ## Pages
 
 - [Home](https://tzabari.dev/)
+- [Case study: An AI outbound engine, built node by node](https://tzabari.dev/ai-outbound-engine.html)
 - [Blog](https://tzabari.dev/blog.html)
 - [Resume (JSON)](https://tzabari.dev/resume.json)
